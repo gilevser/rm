@@ -1,5 +1,6 @@
 import { useFetch } from './hooks/useFetch';
 import { useLocalStorage } from './hooks/useLocalStorage';
+import { useHover } from './hooks/useHover';
 
 export default function Demo() {
   const {
@@ -9,6 +10,7 @@ export default function Demo() {
     refetch
   } = useFetch('https://jsonplaceholder.typicode.com/posts');
   const [value, { setItem, removeItem }] = useLocalStorage('some-key');
+  const { hovered, ref } = useHover();
 	
   return (
     // <div>
@@ -26,12 +28,16 @@ export default function Demo() {
     //   {data && !isLoading && data.map(item => <div key={item.id}>{item.title}</div>) }
     // </div>
    
-      <div>
-        <p>Значение из LocalStorage: {value}</p>
-        <div>
-          <button onClick={() => setItem('new storage value')}>Задать значение</button>
-          <button onClick={() => removeItem()}>Удалить значение</button>
-        </div>
+      // <div>
+      //   <p>Значение из LocalStorage: {value}</p>
+      //   <div>
+      //     <button onClick={() => setItem('new storage value')}>Задать значение</button>
+      //     <button onClick={() => removeItem()}>Удалить значение</button>
+      //   </div>
+      // </div>
+
+      <div ref={ref}>
+      {hovered ? 'На меня навели мышку' : 'Наведи мышкой на меня'}
       </div>
   );
 }
