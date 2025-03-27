@@ -2,6 +2,7 @@ import { useFetch } from './hooks/useFetch';
 import { useLocalStorage } from './hooks/useLocalStorage';
 import { useHover } from './hooks/useHover';
 import { useViewportSize } from './hooks/useViewportSize';
+import { useWindowScroll } from './hooks/useWindowScroll';
 
 export default function Demo() {
   const {
@@ -13,9 +14,16 @@ export default function Demo() {
   const [value, { setItem, removeItem }] = useLocalStorage('some-key');
   const { hovered, ref } = useHover();
   const { height, width } = useViewportSize();
+  const [scroll, scrollTo] = useWindowScroll();
 	
   return (
     <>
+        <div>
+      <p>
+        Scroll position x: {scroll.x}, y: {scroll.y}
+      </p>
+      <button onClick={() => scrollTo({ y: 0 })}>Scroll to top</button>
+    </div>
     <div>
       <div>
         <button onClick={() => refetch({
@@ -46,5 +54,6 @@ export default function Demo() {
       Width: {width}, height: {height}
     </>
       </>
+
   );
 }
